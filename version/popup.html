@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+
+        <link rel="stylesheet" href="style.css">
+
+    <p style="color:white"> THE SORTING HAT</p> 
+    </head>
+    <body>
+        <p style="color:white">Enter the keyword to create the label</p>
+        <form>
+            <input id="keyword" type="text">
+            
+        </form>
+        <p style="color:white">What do you want the label to be named?</p>
+        <form>
+            <input id="labelname" type="text">
+        </form>
+        <script >
+          function press(){
+          alert(document.getElementById ("labelname").value);
+          }
+          </script>
+        <div class="container">
+            <p aligh="centre">
+            <button class="btn-1" onclick="press()">Create!</button>
+            
+            </p>
+        <p>
+          <a href="https://calendar.google.com/calendar/u/0/r?tab=rc&pli=1">
+            <button class="btn2" Google Calendar></button>
+          </a>
+          
+        
+    </body>
+    <script src="https://apis.google.com/js/api.js"></script>
+<script>
+ 
+
+  function authenticate() {
+    return gapi.auth2.getAuthInstance()
+        .signIn({scope: "https://mail.google.com/ https://www.googleapis.com/auth/gmail.labels https://www.googleapis.com/auth/gmail.modify"})
+        .then(function() { console.log("Sign-in successful"); },
+              function(err) { console.error("Error signing in", err); });
+  }
+  function loadClient() {
+    gapi.client.setApiKey("AIzaSyBFAJaJbphhxtA7WRJmb4FZ8iL7V1gK4Q8");
+    return gapi.client.load("https://gmail.googleapis.com/$discovery/rest?version=v1")
+        .then(function() { console.log("GAPI client loaded for API"); },
+              function(err) { console.error("Error loading GAPI client for API", err); });
+  }
+  // Make sure the client is loaded and sign-in is complete before calling this method.
+  function execute() {
+    return gapi.client.gmail.users.labels.create({
+      "userId": "RudraPrataps7789@gmail.com",
+      "resource": {
+        "labelListVisibility": "labelShow",
+        "messageListVisibility": "show",
+        "name": "test8"
+      }
+    })
+        .then(function(response) {
+                // Handle the results here (response.result has the parsed body).
+                console.log("Response", response);
+              },
+              function(err) { console.error("Execute error", err); });
+  }
+  gapi.load("client:auth2", function() {
+    gapi.auth2.init({client_id: "846181891405-u8i9rc5190u20upsvjhrjsim7temm1pj.apps.googleusercontent.com"});
+  });
+</script>
+<button onclick="authenticate().then(loadClient)">authorize and load</button>
+<button onclick="execute()">execute</button>
+
+    
+</html>
